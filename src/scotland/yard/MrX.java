@@ -3,8 +3,6 @@ package scotland.yard;
 import java.util.ArrayList;
 import java.util.List;
 
-import processing.core.PImage;
-
 public class MrX implements Player {
 
 	Node current;
@@ -12,7 +10,7 @@ public class MrX implements Player {
 	/**
 	 * @param args
 	 */
-	MrX(Node n,PImage img){
+	MrX(Node n){
 		this.g = new SmallGraph();
 		this.current = n;
 	}
