@@ -36,7 +36,7 @@ public class Detective implements Player {
         
 	}
 
-	public Node greedyAlgorithm() {
+	public Node greedyAlgorithm(List<Node> mrX) {
 		return null;
 	}
 
