@@ -22,37 +22,6 @@ public class SmallGraph implements Graph {
 		nodess = new ArrayList<Node>();
         edgess = new ArrayList<Edge>();
         List<Integer> obs = new ArrayList<Integer>(); 
-        obs.add(3);
-        obs.add(5);
-        obs.add(6);
-        obs.add(11);
-        obs.add(13);
-        obs.add(16);
-        obs.add(18);
-        obs.add(21);
-        obs.add(23);
-        obs.add(31);
-        obs.add(37);
-        obs.add(38);
-        obs.add(39);
-        obs.add(41);
-        obs.add(44);
-        obs.add(55);
-        obs.add(58);
-        obs.add(59);
-        obs.add(60);
-        obs.add(61);
-        obs.add(62);
-        obs.add(68);
-        obs.add(69);
-        obs.add(75);
-        obs.add(82);
-        obs.add(84);
-        obs.add(85);
-        obs.add(87);
-        obs.add(92);
-        obs.add(95);
-       
         	
         	try {
         		String path = new File("").getAbsolutePath();                        
