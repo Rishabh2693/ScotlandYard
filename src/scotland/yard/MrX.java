@@ -64,6 +64,8 @@ public class MrX implements Player {
         	}
         	
         }
+        move.occupied = true;
+        current.occupied = false;
 		return move;
 	}
 	
@@ -91,6 +93,8 @@ public class MrX implements Player {
         	}
         	
         }
+        move.occupied = true;
+        current.occupied = false;
 		return move;
 	}
 	public Node gameTreeSearch() {

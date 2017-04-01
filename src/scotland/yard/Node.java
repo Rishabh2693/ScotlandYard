@@ -1,11 +1,11 @@
 package scotland.yard;
 
 public class Node {
+	public boolean occupied;
     final private int id;
     final private String name;
     final private int x;
     final private int y;
-    boolean occupied;
 
     public Node(int id, String name,int x,int y) {
             this.id = id;
