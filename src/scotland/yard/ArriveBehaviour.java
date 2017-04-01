@@ -6,7 +6,7 @@ import processing.core.PVector;
 public class ArriveBehaviour extends PApplet {
 	CustomShape cS;
 	PVector dest;
-	Room r;
+//	Room r;
 	PVector d;
 	LinkedList<Node> path;
 	public static void main(String[] args){
@@ -18,7 +18,7 @@ public class ArriveBehaviour extends PApplet {
 		  }
 
 		  public void setup() {
-		       r = new Room(this);
+		     //  r = new Room(this);
 			   dest = new PVector(0,0);
 			  cS = new CustomShape(mouseX,mouseY,this);
 			  d = new PVector(0,0);
@@ -37,7 +37,7 @@ public class ArriveBehaviour extends PApplet {
 				  cS.position.y=-450;
 			  
 			  background(255);
-			  r.diplayRoom();
+			//  r.diplayRoom();
 			  Graph g = new SmallGraph();
 			  Astar a = new Astar(g);
 			  

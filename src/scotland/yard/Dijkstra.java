@@ -118,36 +118,7 @@ public class Dijkstra {
             return path;
     }
     
-    public static void main(String[] args){
-    	 
-                 Graph graph = LargeGraph.getInstance();
-                // Graph g2 = LargeGraph.getInstance();
-    			 //Graph graph = new SmallGraph();	
-                 Dijkstra dijkstra = new Dijkstra(graph);
-                 Astar astar = new Astar(graph);
-                 long startTime = System.currentTimeMillis();
-                 //Edit to change Node and Source
-                 LinkedList<Node> path = dijkstra.execute(graph.getNodes().get(0),graph.getNodes().get(199));
-                 long estimatedTime = System.currentTimeMillis() - startTime;
-                 long startTime1 = System.currentTimeMillis();
-                 //Edit to change Node and Source
-                 LinkedList<Node> path2 = astar.execute(graph.getNodes().get(0),graph.getNodes().get(199));
-                 long estimatedTime1 = System.currentTimeMillis() - startTime1;
-                 if(path==null) 
-                 {
-                	 System.out.println("Node is not connected in the random graph Re Run");
-                	 return;
-                 }
-                 
-                 for (Node vertex : path) {
-                         System.out.println(vertex);
-                 }
-                 for (Node vertex : path2) {
-                     System.out.println(vertex);
-                 }
-                 System.out.println( dijkstra.fill+" "+dijkstra.mem+" "+estimatedTime);
-                 System.out.println( astar.fill+" "+astar.mem+" "+estimatedTime1);
-    	}
+   
     	
 }
 

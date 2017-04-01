@@ -138,25 +138,6 @@ public class Astar {
     	return (float) Math.abs(source.getId()-dest.getId());
     	
     }
-    public static void main(String[] args){
-    	
-                 Graph graph = LargeGraph.getInstance();
-                 Astar dijkstra = new Astar(graph);
-                 LinkedList<Node> path = dijkstra.execute(graph.getNodes().get(0),graph.getNodes().get(99));
-                  
-                 if(path==null) 
-                 {
-                	 System.out.println("Node is not connected in the random graph Re Run");
-                	 return;
-                 }
-                 
-                 for (Node vertex : path) {
-                         System.out.println(vertex);
-                 }
-                 System.out.println( dijkstra.fill+" "+dijkstra.mem);
-         }
-
-        
     	
     }
 
