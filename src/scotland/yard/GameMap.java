@@ -122,7 +122,7 @@ public class GameMap extends PApplet {
 		}
 		//xPos.add(x.getCurrentPosition());
 		
-		Node next = x.greedyAlgorithm(dectPos);
+		Node next = x.gameTreeSearch(dectPos, 'a');
 		if(next == null) {
 			caught = true;
 		} else {
@@ -131,12 +131,25 @@ public class GameMap extends PApplet {
 				xPos.set(0, next);
 			}
 		
+			char type;
+			for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(xPos.get(0))&& edge.getGoal().equals(next)) {
+                        type = edge.getType();
+                }
+			} 
+			
 			for(int i=0; i<dect.size(); i++) {
+<<<<<<< HEAD
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {
 					next = dect.get(i).greedyAlgorithm(xPos);
 				}
+=======
+				//System.out.print(i + " ");
+//				next = dect.get(i).gameTreeSearch(xPos, 'T');
+				next = dect.get(i).greedyAlgorithm(xPos);
+>>>>>>> branch 'master' of https://github.com/Rishabh2693/ScotlandYard.git
 				if(next == null) {
 					caught = true;
 				} else {

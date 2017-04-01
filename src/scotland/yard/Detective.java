@@ -9,6 +9,7 @@ public class Detective implements Player {
 	Graph g;
 	int id;
 	int []tickets = new int[3];
+	List<Node> possible_locations;
 	/**
 	 * @param args
 	 */
@@ -89,8 +90,65 @@ public class Detective implements Player {
 		return closest;
 	}
 
-	public Node gameTreeSearch() {
-		return null;
+public Node gameTreeSearch(List<Node> last_mrX, char t) 
+{
+		List<Node> old_possible_locations = new ArrayList<Node>();
+		old_possible_locations = possible_locations;
+		
+		if(old_possible_locations.size()!=0)
+		{
+			for(int i =0; i < old_possible_locations.size();i++)
+			{
+				for (Edge edge : g.getEdges()) 
+				{
+					if (edge.getSource().equals(old_possible_locations.get(i))&& !edge.getGoal().getOccupied() && edge.getType()==t && !possible_locations.contains(edge.getGoal())) 
+					{
+						possible_locations.add(edge.getGoal());
+					}
+				} 
+			}
+		}
+		else if(last_mrX.size()==1)
+		{
+			possible_locations=last_mrX;
+		}
+		
+		// get Detective's neighbours
+		List<Node> neighbors = new ArrayList<Node>();
+        for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(current)
+                                && !edge.getGoal().getOccupied()) {
+                        neighbors.add(edge.getGoal());
+                }
+        } 
+        
+        Dijkstra dijkstra = new Dijkstra(g);
+        int min = 10;
+        Node closest = neighbors.get(0);
+        for(int j =0; j < possible_locations.size(); j++)
+        {
+        	for(int i=0;i<neighbors.size();i++){
+        		if(possible_locations.get(j)!=neighbors.get(i))
+        		{
+        			if(min>dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size())
+        			{
+        				if(!neighbors.get(i).occupied)
+        				{	
+        					min = dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size();
+        					closest = neighbors.get(i);
+        				}
+        			}		
+        		}
+        		
+        		else 
+        			return possible_locations.get(j);
+        	}        	
+        }
+        
+        closest.occupied = true;
+        current.occupied = false;
+		return closest;
+        
 	}
 	public static void main(String[] args) {
 		Graph g = new SmallGraph();
