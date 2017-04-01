@@ -142,6 +142,7 @@ public class GameMap extends PApplet {
 			}
 			lastPos = next;
 			for(int i=0; i<dect.size(); i++) {
+				System.out.println(dect.size());
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {

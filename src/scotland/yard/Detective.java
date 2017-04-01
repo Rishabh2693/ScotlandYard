@@ -142,8 +142,11 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         			}		
         		}
         		
-        		else 
+        		else {
+        			current.occupied = false;
+        			possible_locations.get(j).occupied=true;
         			return possible_locations.get(j);
+        		}
         	}        	
         }
         
