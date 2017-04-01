@@ -97,6 +97,7 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 		
 		if(old_possible_locations.size()!=0)
 		{
+			possible_locations = new ArrayList<Node>();
 			for(int i =0; i < old_possible_locations.size();i++)
 			{
 				for (Edge edge : g.getEdges()) 
