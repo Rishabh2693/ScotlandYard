@@ -11,15 +11,16 @@ import processing.core.PShape;
 
 public class GameMap extends PApplet {
 	PShape s;
+	int pos;
 	PImage background, xBoard;
 	List<PImage> tickets = new ArrayList<PImage>();	//bus, taxi, underground, black, x2
 	
-	Graph g = new SmallGraph();
+	Graph g;
 	int Number_of_Detectives = 5;
 	List<Detective> dect = new ArrayList<Detective>();
-	MrX x = new MrX(g.getNodes().get(10));
+	MrX x;
 	
-	int[] startNodes = {13 ,26, 29, 34, 50, 53, 91, 94, 103, 112, 117, 132, 138, 141, 155, 174, 197, 198};
+	int[] startNodes = {13,26, 29, 34, 50, 53, 91, 94, 103, 112, 117, 132, 138, 141, 155, 174, 197, 198};
 	HashMap<Integer, int[]> colorMap = new HashMap<Integer, int[]>();
 	
 	public static void main(String[] args) {
@@ -47,9 +48,25 @@ public class GameMap extends PApplet {
 			tickets.get(i).resize(45, 25);
 		}
 		
-		//Random r = new Random();
+		g = new SmallGraph();
+		x = new MrX(g.getNodes().get(10));
+		Random r = new Random();
 		for(int i=0; i<Number_of_Detectives; i++) {
-			dect.add(new Detective(g.getNodes().get(i), i));
+			pos = startNodes[r.nextInt(18)];
+			pos -= 1;
+			//System.out.println(pos + " " + g.getNodes().get(pos).occupied);
+			if(!g.getNodes().get(pos).occupied) {
+				dect.add(new Detective(g.getNodes().get(pos), i));
+				g.getNodes().get(pos).occupied = true;
+				dect.get(i).getCurrentPosition().occupied = true;
+			} else {
+				//System.out.println(pos + " - " + g.getNodes().get(pos).occupied);
+				i--;
+			}
+		}
+		
+		for(int i=0; i<199; i++) {
+			System.out.println((i+1)+" " +g.getNodes().get(i).occupied);
 		}
 		colorMap.put(0, new int[]{0,0,255});
 		colorMap.put(1, new int[]{255,0,0});

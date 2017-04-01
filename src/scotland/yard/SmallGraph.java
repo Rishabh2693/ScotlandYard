@@ -14,8 +14,8 @@ import java.util.StringTokenizer;
 public class SmallGraph implements Graph {
 	
 	
-	 static List<Node> nodess;
-     static List<Edge> edgess;
+	 List<Node> nodess;
+     List<Edge> edgess;
 
 	SmallGraph(){
 		
@@ -48,7 +48,7 @@ public class SmallGraph implements Graph {
             
         	try {
         		String path = new File("").getAbsolutePath();                        
-    			File file = new File(path + "/src/farzinodes.txt");
+    			File file = new File(path + "/src/nodes.txt");
     			FileReader fileReader = new FileReader(file);
     			BufferedReader bufferedReader = new BufferedReader(fileReader);
     			String line;
@@ -70,7 +70,7 @@ public class SmallGraph implements Graph {
     		}
            	
 	}
-	private static void addNewEdge(int sourceLocNo, int destLocNo,
+	private void addNewEdge(int sourceLocNo, int destLocNo,
             int cost,char a) {
     Edge lane = new Edge(nodess.get(sourceLocNo), nodess.get(destLocNo), cost, a );
     edgess.add(lane);
@@ -82,11 +82,11 @@ public class SmallGraph implements Graph {
         return edgess;
 	}
 	public static void main(String args[]){
-		SmallGraph g = new SmallGraph();
+		/*SmallGraph g = new SmallGraph();
 		List<Node> a = g.getNodes();
 		for(int i=0;i<a.size();i++){
 			System.out.println(a.get(i).getId()+" "+a.get(i).getName()+" "+a.get(i).getX()+" "+a.get(i).getY());
-		}
+		}*/
 		
 	}
 }
