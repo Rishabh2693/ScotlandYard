@@ -14,6 +14,7 @@ public class GameMap extends PApplet {
 	int pos, xChance = 0;
 	List<Node> dectPos = new ArrayList<Node>();
 	List<Node> xPos = new ArrayList<Node>();
+	Node lastPos;
 	PImage background, xBoard;
 	boolean caught = false;
 	List<PImage> tickets = new ArrayList<PImage>();	//bus, taxi, underground, black, x2
@@ -37,7 +38,7 @@ public class GameMap extends PApplet {
 
 	public void setup() {
 		g = new SmallGraph();
-		
+		lastPos = new Node();
 		String path = new File("").getAbsolutePath();
 		background = loadImage(path + "/src/ScotlandYardBG.jpg");
 		background.resize(1000, 800);
@@ -121,7 +122,7 @@ public class GameMap extends PApplet {
 			xPos.add(temp);
 		}
 		//xPos.add(x.getCurrentPosition());
-		
+
 		Node next = x.gameTreeSearch(dectPos, 'a');
 		if(next == null) {
 			caught = true;
@@ -130,20 +131,22 @@ public class GameMap extends PApplet {
 			if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23) {
 				xPos.set(0, next);
 			}
-		
-			char type;
+			lastPos = next;
+			char type = 'T';
+			if(xChance>1){
 			for (Edge edge : g.getEdges()) {
-                if (edge.getSource().equals(xPos.get(0))&& edge.getGoal().equals(next)) {
+                if (edge.getSource().equals(lastPos)&& edge.getGoal().equals(next)) {
                         type = edge.getType();
                 }
 			} 
-			
+			}
+			lastPos = next;
 			for(int i=0; i<dect.size(); i++) {
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {
-					next = dect.get(i).greedyAlgorithm(xPos);
-					//next = dect.get(i).gameTreeSearch(xPos, type);
+					//next = dect.get(i).greedyAlgorithm(xPos);
+					next = dect.get(i).gameTreeSearch(xPos, type);
 				}
 				if(next == null) {
 					caught = true;
