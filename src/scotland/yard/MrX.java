@@ -170,9 +170,6 @@ public class MrX implements Player {
 	                }
 				} 	
 			}
-	
-		
-		
 		
 		// get X's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
@@ -194,7 +191,7 @@ public class MrX implements Player {
         // Find neighbor of detective closest to X
         for(int j =0; j < possible_locations.size(); j++)
         {
-        	System.out.println("D: "+possible_locations.get(j).getId());
+//        	System.out.println("D: "+possible_locations.get(j).getId());
         	if(possible_locations.get(j)!=current)
         	{
         		if(min > dijkstra.execute(possible_locations.get(j),current).size())
@@ -204,12 +201,12 @@ public class MrX implements Player {
         		}
         	}
         }
-        	System.out.println(closest_detective.getId());
+//        	System.out.println(closest_detective.getId());
         	// Find X's neighbor farthest from closest detective
         	for(int i=0;i<neighbors.size();i++){
         		if(closest_detective!=neighbors.get(i))
         		{
-        			System.out.println("X: "+neighbors.get(i).getId());
+//        			System.out.println("X: "+neighbors.get(i).getId());
         		if(max < dijkstra.execute(closest_detective,neighbors.get(i)).size())
         		{
         			if(!neighbors.get(i).occupied)
@@ -220,7 +217,7 @@ public class MrX implements Player {
         		}
         		}
         	}        	      
-        System.out.println("X_new:"+farthest.getId());
+//        System.out.println("X_new:"+farthest.getId());
 		return farthest;
 		
 	}

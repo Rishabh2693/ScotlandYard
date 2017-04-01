@@ -90,27 +90,27 @@ public class Detective implements Player {
 		return closest;
 	}
 
-public Node gameTreeSearch(List<Node> last_mrX, char t) {
+public Node gameTreeSearch(List<Node> last_mrX, char t) 
+{
+		List<Node> old_possible_locations = new ArrayList<Node>();
+		old_possible_locations = possible_locations;
 		
-		possible_locations = new ArrayList<Node>();
-		if(last_mrX.size()==1)
+		if(old_possible_locations.size()!=0)
 		{
-			possible_locations=last_mrX;
-		}
-		else
-		{
-			
-			for(int i =0; i < last_mrX.size();i++)
+			for(int i =0; i < old_possible_locations.size();i++)
 			{
-				// Find all edges from last known MRX positions to next after t ticket used
 				for (Edge edge : g.getEdges()) 
 				{
-	                if (edge.getSource().equals(current)&& !edge.getGoal().getOccupied() && edge.getType()==t && !possible_locations.contains(edge.getGoal())) 
-	                {
-	                       possible_locations.add(edge.getGoal());
-	                }
-				} 	
+					if (edge.getSource().equals(old_possible_locations.get(i))&& !edge.getGoal().getOccupied() && edge.getType()==t && !possible_locations.contains(edge.getGoal())) 
+					{
+						possible_locations.add(edge.getGoal());
+					}
+				} 
 			}
+		}
+		else if(last_mrX.size()==1)
+		{
+			possible_locations=last_mrX;
 		}
 		
 		// get Detective's neighbours
