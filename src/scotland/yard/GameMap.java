@@ -131,7 +131,8 @@ public class GameMap extends PApplet {
 			
 			for(int i=0; i<dect.size(); i++) {
 				//System.out.print(i + " ");
-				next = dect.get(i).gameTreeSearch(xPos, 'T');
+//				next = dect.get(i).gameTreeSearch(xPos, 'T');
+				next = dect.get(i).greedyAlgorithm(xPos);
 				if(next == null) {
 					caught = true;
 				} else {

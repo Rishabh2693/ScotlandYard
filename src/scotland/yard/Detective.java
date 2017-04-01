@@ -128,15 +128,20 @@ public Node gameTreeSearch(List<Node> last_mrX, char t) {
         for(int j =0; j < possible_locations.size(); j++)
         {
         	for(int i=0;i<neighbors.size();i++){
-        		if(min>dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size())
+        		if(possible_locations.get(j)!=neighbors.get(i))
         		{
-        			if(!neighbors.get(i).occupied)
-        			{	
-        				min = dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size();
-        				closest = neighbors.get(i);
-        			}
-        				
+        			if(min>dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size())
+        			{
+        				if(!neighbors.get(i).occupied)
+        				{	
+        					min = dijkstra.execute(possible_locations.get(j),neighbors.get(i)).size();
+        					closest = neighbors.get(i);
+        				}
+        			}		
         		}
+        		
+        		else 
+        			return possible_locations.get(j);
         	}        	
         }
         

@@ -207,7 +207,7 @@ public class MrX implements Player {
         	System.out.println(closest_detective.getId());
         	// Find X's neighbor farthest from closest detective
         	for(int i=0;i<neighbors.size();i++){
-        		if(closest_detective!=neighbors)
+        		if(closest_detective!=neighbors.get(i))
         		{
         			System.out.println("X: "+neighbors.get(i).getId());
         		if(max < dijkstra.execute(closest_detective,neighbors.get(i)).size())
