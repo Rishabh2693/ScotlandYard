@@ -6,6 +6,6 @@ public interface Player {
 	Node getCurrentPosition();
 	Node randomAlgorithm();
 	Node greedyAlgorithm(List<Node> detectives);
-	Node gameTreeSearch();
+	Node gameTreeSearch(List<Node> last_mrX, char t);
 	
 }

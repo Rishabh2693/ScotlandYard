@@ -115,16 +115,23 @@ public class GameMap extends PApplet {
 		}
 		xPos.add(x.getCurrentPosition());
 		
-		Node next = x.greedyAlgorithm(dectPos);
+		Node next = x.gameTreeSearch(dectPos, 'a');
 		if(next == null) {
 			caught = true;
 		} else {
 			x.setCurrentPosition(next);
 			xPos.set(0, next);
 		
+			char type;
+			for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(xPos.get(0))&& edge.getGoal().equals(next)) {
+                        type = edge.getType();
+                }
+			} 
+			
 			for(int i=0; i<dect.size(); i++) {
-				System.out.print(i + " ");
-				next = dect.get(i).greedyAlgorithm(xPos);
+				//System.out.print(i + " ");
+				next = dect.get(i).gameTreeSearch(xPos, 'T');
 				if(next == null) {
 					caught = true;
 				} else {

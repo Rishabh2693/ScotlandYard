@@ -22,6 +22,9 @@ public class Edge {
      public int getWeight() {
             return weight;
      }
+     public char getType() {
+         return type;
+  }
 
      @Override
      public String toString() {

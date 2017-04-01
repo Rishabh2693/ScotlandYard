@@ -154,10 +154,77 @@ public class MrX implements Player {
         }
 		return move;
 	}
-	public Node gameTreeSearch() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Node gameTreeSearch(List<Node> detectives, char t) 
+	{
+		List<Node> possible_locations = new ArrayList<Node>();
+			
+		for(int i =0; i < detectives.size();i++)
+		{
+			// Find all edges from detectives positions to next
+			for (Edge edge : g.getEdges()) 
+			{
+	                if (edge.getSource().equals(detectives.get(i)) && !possible_locations.contains(edge.getGoal())) 
+	                {
+	                       possible_locations.add(edge.getGoal());
+	                }
+				} 	
+			}
+	
+		
+		
+		
+		// get X's neighbours
+		List<Node> neighbors = new ArrayList<Node>();
+        for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(current)
+                                && !edge.getGoal().getOccupied()) {
+                        neighbors.add(edge.getGoal());
+                }
+        } 
+        
+        if(neighbors.size()==0 && possible_locations.size()==0)
+        	return null;
+        
+        Dijkstra dijkstra = new Dijkstra(g);
+        int max = 0;
+        int min = 10;
+        Node farthest = neighbors.get(0);
+        Node closest_detective = possible_locations.get(0);
+        // Find neighbor of detective closest to X
+        for(int j =0; j < possible_locations.size(); j++)
+        {
+        	System.out.println("D: "+possible_locations.get(j).getId());
+        	if(possible_locations.get(j)!=current)
+        	{
+        		if(min > dijkstra.execute(possible_locations.get(j),current).size())
+        		{	
+        			min = dijkstra.execute(possible_locations.get(j),current).size();
+        			closest_detective = possible_locations.get(j);    				
+        		}
+        	}
+        }
+        	System.out.println(closest_detective.getId());
+        	// Find X's neighbor farthest from closest detective
+        	for(int i=0;i<neighbors.size();i++){
+        		if(closest_detective!=neighbors)
+        		{
+        			System.out.println("X: "+neighbors.get(i).getId());
+        		if(max < dijkstra.execute(closest_detective,neighbors.get(i)).size())
+        		{
+        			if(!neighbors.get(i).occupied)
+        			{	
+        				max = dijkstra.execute(closest_detective,neighbors.get(i)).size();
+        				farthest = neighbors.get(i);
+        			}
+        		}
+        		}
+        	}        	      
+        System.out.println("X_new:"+farthest.getId());
+		return farthest;
+		
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
