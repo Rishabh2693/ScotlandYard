@@ -139,17 +139,12 @@ public class GameMap extends PApplet {
 			} 
 			
 			for(int i=0; i<dect.size(); i++) {
-<<<<<<< HEAD
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {
 					next = dect.get(i).greedyAlgorithm(xPos);
+					//next = dect.get(i).gameTreeSearch(xPos, type);
 				}
-=======
-				//System.out.print(i + " ");
-//				next = dect.get(i).gameTreeSearch(xPos, 'T');
-				next = dect.get(i).greedyAlgorithm(xPos);
->>>>>>> branch 'master' of https://github.com/Rishabh2693/ScotlandYard.git
 				if(next == null) {
 					caught = true;
 				} else {
