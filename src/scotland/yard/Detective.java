@@ -8,6 +8,7 @@ public class Detective implements Player {
 	Node current;
 	Graph g;
 	int id;
+	int []tickets = new int[3];
 	/**
 	 * @param args
 	 */
@@ -15,6 +16,18 @@ public class Detective implements Player {
 		this.g = new SmallGraph();
 		this.current = n;
 		this.id = id;
+		tickets[0]=10;
+		tickets[1]=8;
+		tickets[2]=4;
+	}
+	public int getTickets(String s){
+		if(s.equals("taxi"))
+			return tickets[0];
+		if(s.equals("bus"))
+			return tickets[1];
+		if(s.equals("underground"))
+			return tickets[2];
+		return 0;
 	}
 	public Node getCurrentPosition() {
 		return current;
