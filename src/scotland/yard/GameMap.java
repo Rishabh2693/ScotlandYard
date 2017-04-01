@@ -97,6 +97,7 @@ public class GameMap extends PApplet {
 		shape(s, 47, 490);*/
 		
 		//detective
+		while(!isCaught())
 		for(int i=0; i<Number_of_Detectives; i++) {
 			stroke(colorMap.get(i)[0], colorMap.get(i)[1], colorMap.get(i)[2]);
 			noFill();

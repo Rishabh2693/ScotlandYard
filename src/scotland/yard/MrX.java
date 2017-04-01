@@ -20,7 +20,13 @@ public class MrX implements Player {
 	public void setCurrentPosition(Node n) {
 		this.current = n;
 	}
-	
+	public boolean isCaught(List<Node> detectives){
+		for(int i=0;i<detectives.size();i++){
+			if(detectives.get(i).getId()==current.getId())
+				return true;
+		}
+		return false;
+	}
 	public void chooseGreedyInit(List<Detective> detectives, int[] startNodes) {
 		Dijkstra d = new Dijkstra(g);
 		Node n = new Node();
