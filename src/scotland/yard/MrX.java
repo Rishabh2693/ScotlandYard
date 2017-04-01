@@ -180,7 +180,7 @@ public class MrX implements Player {
                 }
         } 
         
-        if(neighbors.size()==0 && possible_locations.size()==0)
+        if(neighbors.size()==0 || possible_locations.size()==0)
         	return null;
         
         Dijkstra dijkstra = new Dijkstra(g);
