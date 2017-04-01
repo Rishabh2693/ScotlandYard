@@ -42,7 +42,6 @@ public class MrX implements Player {
 			}
 		}
 		this.current = n;
-		this.current.occupied = true;
 	}
  
 	public Node randomAlgorithm() {
@@ -54,9 +53,7 @@ public class MrX implements Player {
                 }
         }
         int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
-        current.occupied=false;
         Node n = neighbors.get(r);
-        n.occupied = true;
         return n;
         
 	}
@@ -93,8 +90,6 @@ public class MrX implements Player {
         	
         }
         
-        move.occupied = true;
-        current.occupied = false;
 		return move;
 	}
 	
@@ -123,8 +118,6 @@ public class MrX implements Player {
         	}
         	
         }
-        move.occupied = true;
-        current.occupied = false;
 		return move;
 	}
 	public Node gameTreeSearch() {
