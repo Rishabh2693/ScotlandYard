@@ -11,7 +11,9 @@ import processing.core.PShape;
 
 public class GameMap extends PApplet {
 	PShape s;
-	int pos;
+	int pos, xChance = 0;
+	List<Node> dectPos = new ArrayList<Node>();
+	List<Node> xPos = new ArrayList<Node>();
 	PImage background, xBoard;
 	boolean caught = false;
 	List<PImage> tickets = new ArrayList<PImage>();	//bus, taxi, underground, black, x2
@@ -87,7 +89,7 @@ public class GameMap extends PApplet {
 			image(tickets.get(i), 1000, tickets.get(i).height*i);
 		}
 		
-		if(frameCount % 100 == 0 && !caught) {
+		if(frameCount % 100 == 0 && !caught && xChance < 23) {
 			gameLoop();
 		}
 		
@@ -100,31 +102,41 @@ public class GameMap extends PApplet {
 		}
 				
 		//mrX
-		stroke(255);
-		noFill();
-		strokeWeight(4);
-		rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
+		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
+			stroke(255);
+			noFill();
+			strokeWeight(4);
+			rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
+		}
 	}
 	
 	public void gameLoop() {
-		List<Node> dectPos = new ArrayList<Node>();
-		List<Node> xPos = new ArrayList<Node>();
+		xChance++;
 		Node temp = new Node();
-		for(int i=0; i<dect.size(); i++) {
-			dectPos.add(dect.get(i).getCurrentPosition());
+		
+		if(xChance == 1) {
+			for(int i=0; i<dect.size(); i++) {
+				dectPos.add(dect.get(i).getCurrentPosition());
+			}
+			xPos.add(temp);
 		}
-		xPos.add(x.getCurrentPosition());
+		//xPos.add(x.getCurrentPosition());
 		
 		Node next = x.greedyAlgorithm(dectPos);
 		if(next == null) {
 			caught = true;
 		} else {
 			x.setCurrentPosition(next);
-			xPos.set(0, next);
+			if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23) {
+				xPos.set(0, next);
+			}
 		
 			for(int i=0; i<dect.size(); i++) {
-				System.out.print(i + " ");
-				next = dect.get(i).greedyAlgorithm(xPos);
+				if(xPos.get(0).getId() == 0) {
+					next = dect.get(i).randomAlgorithm();
+				} else {
+					next = dect.get(i).greedyAlgorithm(xPos);
+				}
 				if(next == null) {
 					caught = true;
 				} else {
