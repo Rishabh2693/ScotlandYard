@@ -37,7 +37,30 @@ public class Detective implements Player {
 	}
 
 	public Node greedyAlgorithm(List<Node> mrX) {
-		return null;
+		List<Node> neighbors = new ArrayList<Node>();
+        for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(current)
+                                && !current.getOccupied()) {
+                        neighbors.add(edge.getGoal());
+                }
+        } 
+        Dijkstra dijkstra = new Dijkstra(g);
+        int min = dijkstra.execute(mrX.get(0),neighbors.get(0)).size();
+        Node closest = neighbors.get(0);
+        for(int i=0;i<neighbors.size();i++){
+        	if(min>dijkstra.execute(mrX.get(0),neighbors.get(i)).size())
+        	{
+        		if(!neighbors.get(i).occupied)
+        		{	min = dijkstra.execute(mrX.get(0),neighbors.get(i)).size();
+        			closest = neighbors.get(i);
+        		}
+        	}
+        	
+        }
+        
+        closest.occupied = true;
+        current.occupied = false;
+		return closest;
 	}
 
 	public Node gameTreeSearch() {
