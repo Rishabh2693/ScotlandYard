@@ -11,9 +11,8 @@ public class MrX implements Player {
 	/**
 	 * @param args
 	 */
-	MrX() {
-		this.g = new SmallGraph();
-		//this.current = n;
+	MrX(Graph graph) {
+		this.g = graph;
 	}
 	public Node getCurrentPosition() {
 		return current;
@@ -33,8 +32,7 @@ public class MrX implements Player {
 				len = 0;
 				for(int i=0; i<detectives.size(); i++) {
 					//System.out.println(detectives.get(i).getCurrentPosition() + " MrX " + g.getNodes().get(pos));
-					dPos = detectives.get(i).getCurrentPosition().getId()-1;
-					len += d.execute(g.getNodes().get(dPos), g.getNodes().get(pos)).size();
+					len+= d.execute(detectives.get(i).getCurrentPosition(), g.getNodes().get(pos)).size();
 				}
 				//System.out.println("Max: " + max + "Leng: " +len);
 				if(max < len) {

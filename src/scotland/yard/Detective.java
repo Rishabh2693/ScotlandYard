@@ -12,8 +12,8 @@ public class Detective implements Player {
 	/**
 	 * @param args
 	 */
-	Detective(Node n,int id){
-		this.g = new SmallGraph();
+	Detective(Graph g, Node n,int id){
+		this.g = g;
 		this.current = n;
 		this.id = id;
 		tickets[0]=10;

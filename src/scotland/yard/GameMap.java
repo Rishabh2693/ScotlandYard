@@ -55,7 +55,7 @@ public class GameMap extends PApplet {
 		for(int i=0; i<Number_of_Detectives; i++) {
 			pos = startNodes[r.nextInt(18)] - 1;
 			if(!g.getNodes().get(pos).occupied) {
-				dect.add(new Detective(g.getNodes().get(pos), i));
+				dect.add(new Detective(g, g.getNodes().get(pos), i));
 				dect.get(i).getCurrentPosition().occupied = true;
 				System.out.println(g.getNodes().get(pos));
 			} else {
@@ -69,7 +69,7 @@ public class GameMap extends PApplet {
 		}
 		x = new MrX(g.getNodes().get(pos));
 		x.getCurrentPosition().occupied = true;*/
-		x = new MrX();
+		x = new MrX(g);
 		x.chooseGreedyInit(dect, startNodes);
 		
 		colorMap.put(0, new int[]{0,0,255});
