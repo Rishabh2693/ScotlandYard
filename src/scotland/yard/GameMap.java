@@ -33,6 +33,8 @@ public class GameMap extends PApplet {
 	}
 
 	public void setup() {
+		g = new SmallGraph();
+		
 		String path = new File("").getAbsolutePath();
 		background = loadImage(path + "/src/ScotlandYardBG.jpg");
 		background.resize(1000, 800);
@@ -48,26 +50,28 @@ public class GameMap extends PApplet {
 			tickets.get(i).resize(45, 25);
 		}
 		
-		g = new SmallGraph();
-		x = new MrX(g.getNodes().get(10));
+		//assign random positions to detectives
 		Random r = new Random();
 		for(int i=0; i<Number_of_Detectives; i++) {
-			pos = startNodes[r.nextInt(18)];
-			pos -= 1;
-			//System.out.println(pos + " " + g.getNodes().get(pos).occupied);
+			pos = startNodes[r.nextInt(18)] - 1;
 			if(!g.getNodes().get(pos).occupied) {
 				dect.add(new Detective(g.getNodes().get(pos), i));
-				g.getNodes().get(pos).occupied = true;
 				dect.get(i).getCurrentPosition().occupied = true;
 			} else {
-				//System.out.println(pos + " - " + g.getNodes().get(pos).occupied);
 				i--;
 			}
 		}
 		
+		while(g.getNodes().get(pos).occupied) {
+			pos = startNodes[r.nextInt(18)] - 1;
+		}
+		x = new MrX(g.getNodes().get(pos));
+		x.getCurrentPosition().occupied = true;
+		
 		for(int i=0; i<199; i++) {
 			System.out.println((i+1)+" " +g.getNodes().get(i).occupied);
 		}
+		
 		colorMap.put(0, new int[]{0,0,255});
 		colorMap.put(1, new int[]{255,0,0});
 		colorMap.put(2, new int[]{0,255,0});
@@ -101,10 +105,10 @@ public class GameMap extends PApplet {
 		}
 				
 		//mrX
-		stroke(0);
+		stroke(255);
 		noFill();
-		strokeWeight(5);
-		rect(x.getCurrentPosition().getX(), x.getCurrentPosition().getY(), 20, 20);
+		strokeWeight(4);
+		rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
 	}
 
 }
