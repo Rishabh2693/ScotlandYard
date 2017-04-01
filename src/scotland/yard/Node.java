@@ -7,6 +7,12 @@ public class Node {
     final private int x;
     final private int y;
 
+    public Node() {
+    	x=0;
+    	y=0;
+    	name="";
+    	id=0;
+    }
     public Node(int id, String name,int x,int y) {
             this.id = id;
             this.name = name;

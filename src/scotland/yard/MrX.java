@@ -24,24 +24,26 @@ public class MrX implements Player {
 	
 	public void chooseGreedyInit(List<Detective> detectives, int[] startNodes) {
 		Dijkstra d = new Dijkstra(g);
-		int len = 0, pos, max;
-		System.out.println(g.getEdges());
-		for(int index = 1; index < startNodes.length; index++) {
+		Node n = new Node();
+		int len = 0, pos, dPos, max;
+		max = len;
+		for(int index = 0; index < startNodes.length; index++) {
 			pos = startNodes[index] - 1;
 			if(!g.getNodes().get(pos).occupied) {
-				this.current = g.getNodes().get(pos);
-				max = len;
 				len = 0;
 				for(int i=0; i<detectives.size(); i++) {
-					len += d.execute(detectives.get(i).getCurrentPosition(), current).size();
-					System.out.println(len);
+					//System.out.println(detectives.get(i).getCurrentPosition() + " MrX " + g.getNodes().get(pos));
+					dPos = detectives.get(i).getCurrentPosition().getId()-1;
+					len += d.execute(g.getNodes().get(dPos), g.getNodes().get(pos)).size();
 				}
+				//System.out.println("Max: " + max + "Leng: " +len);
 				if(max < len) {
 					max = len;
-					this.current = g.getNodes().get(pos);
+					n = g.getNodes().get(pos);
 				}
 			}
 		}
+		this.current = n;
 		this.current.occupied = true;
 	}
  

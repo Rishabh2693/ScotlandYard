@@ -70,10 +70,11 @@ public class SmallGraph implements Graph {
     		}
            	
 	}
-	private void addNewEdge(int sourceLocNo, int destLocNo,
-            int cost,char a) {
-    Edge lane = new Edge(nodess.get(sourceLocNo), nodess.get(destLocNo), cost, a );
-    edgess.add(lane);
+	private void addNewEdge(int sourceLocNo, int destLocNo, int cost,char a) {
+	    Edge lane = new Edge(nodess.get(sourceLocNo), nodess.get(destLocNo), cost, a );
+	    Edge lane2 = new Edge(nodess.get(destLocNo), nodess.get(sourceLocNo), cost, a );
+	    edgess.add(lane);
+	    edgess.add(lane2);
 	}
 	public List<Node> getNodes() {
         return nodess;
