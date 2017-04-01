@@ -20,7 +20,7 @@ public class GameMap extends PApplet {
 	List<Detective> dect = new ArrayList<Detective>();
 	MrX x;
 	
-	int[] startNodes = {13,26, 29, 34, 50, 53, 91, 94, 103, 112, 117, 132, 138, 141, 155, 174, 197, 198};
+	int[] startNodes = {13, 26, 29, 34, 50, 53, 91, 94, 103, 112, 117, 132, 138, 141, 155, 174, 197, 198};
 	HashMap<Integer, int[]> colorMap = new HashMap<Integer, int[]>();
 	
 	public static void main(String[] args) {
@@ -62,14 +62,17 @@ public class GameMap extends PApplet {
 			}
 		}
 		
-		while(g.getNodes().get(pos).occupied) {
+		//assign dummy nodes
+		/*while(g.getNodes().get(pos).occupied) {
 			pos = startNodes[r.nextInt(18)] - 1;
 		}
 		x = new MrX(g.getNodes().get(pos));
-		x.getCurrentPosition().occupied = true;
+		x.getCurrentPosition().occupied = true;*/
+		x = new MrX();
+		x.chooseGreedyInit(dect, startNodes);
 		
 		for(int i=0; i<199; i++) {
-			System.out.println((i+1)+" " +g.getNodes().get(i).occupied);
+			System.out.println((i+1) + " " + g.getNodes().get(i).occupied);
 		}
 		
 		colorMap.put(0, new int[]{0,0,255});

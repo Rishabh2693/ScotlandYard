@@ -2,6 +2,7 @@ package scotland.yard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MrX implements Player {
 
@@ -10,14 +11,40 @@ public class MrX implements Player {
 	/**
 	 * @param args
 	 */
-	MrX(Node n){
+	MrX() {
 		this.g = new SmallGraph();
-		this.current = n;
+		//this.current = n;
 	}
 	public Node getCurrentPosition() {
 		return current;
 	}
-
+	public void setCurrentPosition(Node n) {
+		this.current = n;
+	}
+	
+	public void chooseGreedyInit(List<Detective> detectives, int[] startNodes) {
+		Dijkstra d = new Dijkstra(g);
+		int len = 0, pos, max;
+		System.out.println(g.getEdges());
+		for(int index = 1; index < startNodes.length; index++) {
+			pos = startNodes[index] - 1;
+			if(!g.getNodes().get(pos).occupied) {
+				this.current = g.getNodes().get(pos);
+				max = len;
+				len = 0;
+				for(int i=0; i<detectives.size(); i++) {
+					len += d.execute(detectives.get(i).getCurrentPosition(), current).size();
+					System.out.println(len);
+				}
+				if(max < len) {
+					max = len;
+					this.current = g.getNodes().get(pos);
+				}
+			}
+		}
+		this.current.occupied = true;
+	}
+ 
 	public Node randomAlgorithm() {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
@@ -34,6 +61,7 @@ public class MrX implements Player {
         
 	}
 
+	//maximize minimum
 	public Node greedyAlgorithm(List<Node> detectives) {
 		
 		List<Node> neighbors = new ArrayList<Node>();
@@ -64,11 +92,13 @@ public class MrX implements Player {
         	}
         	
         }
+        
         move.occupied = true;
         current.occupied = false;
 		return move;
 	}
 	
+	//maximize sum of distance
 	public Node greedyAlgorithm1(List<Node> detectives) {
 		
 		List<Node> neighbors = new ArrayList<Node>();
