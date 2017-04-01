@@ -34,7 +34,7 @@ public class MrX implements Player {
 		max = len;
 		for(int index = 0; index < startNodes.length; index++) {
 			pos = startNodes[index] - 1;
-			if(!g.getNodes().get(pos).occupied) {
+			if(!g.getNodes().get(pos).getOccupied()) {
 				len = 0;
 				for(int i=0; i<detectives.size(); i++) {
 					//System.out.println(detectives.get(i).getCurrentPosition() + " MrX " + g.getNodes().get(pos));
@@ -54,13 +54,19 @@ public class MrX implements Player {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !current.getOccupied()) {
+                                && !edge.getGoal().getOccupied()) {
                         neighbors.add(edge.getGoal());
                 }
         }
-        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
-        Node n = neighbors.get(r);
-        return n;
+        
+        if(neighbors.size() > 0) {
+	        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
+	        Node n = neighbors.get(r);
+	        return n;
+        }
+        else {
+        	return null;
+        }
         
 	}
 
@@ -70,30 +76,38 @@ public class MrX implements Player {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !current.getOccupied()) {
+                                && !edge.getGoal().getOccupied()) {
                         neighbors.add(edge.getGoal());
                 }
         }
+        if(neighbors.size()==0)
+        	return null;
         Dijkstra dijkstra = new Dijkstra(g);
-        int min = dijkstra.execute(detectives.get(0),current).size();
+        List<Node> path = dijkstra.execute(detectives.get(0),current);
         Node closest = detectives.get(0);
-        for(int i=0;i<detectives.size();i++){
-        	if(min>dijkstra.execute(detectives.get(i),current).size())
-        	{
-        		min = dijkstra.execute(detectives.get(i),current).size();
-        		closest = detectives.get(i);
-        	}
-        	
+        if(path != null) {
+	        int min = path.size();
+	        for(int i=0;i<detectives.size();i++){
+	        	if(min>dijkstra.execute(detectives.get(i),current).size())
+	        	{
+	        		min = dijkstra.execute(detectives.get(i),current).size();
+	        		closest = detectives.get(i);
+	        	}
+	        	
+	        }
         }
-        int max = dijkstra.execute(closest,neighbors.get(0)).size();
+        path = dijkstra.execute(closest,neighbors.get(0));
         Node move = neighbors.get(0);
-        for(int i=0;i<neighbors.size();i++){
-        	if(max<dijkstra.execute(closest,neighbors.get(i)).size())
-        	{
-        		max = dijkstra.execute(neighbors.get(i),closest).size();
-        		move = neighbors.get(i);
-        	}
-        	
+        if(path != null) {
+	        int max = path.size();
+	        for(int i=0;i<neighbors.size();i++){
+	        	if(max<dijkstra.execute(closest,neighbors.get(i)).size())
+	        	{
+	        		max = dijkstra.execute(neighbors.get(i),closest).size();
+	        		move = neighbors.get(i);
+	        	}
+	        	
+	        }
         }
         
 		return move;
@@ -105,20 +119,24 @@ public class MrX implements Player {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !current.getOccupied()) {
+                                && !edge.getGoal().getOccupied()) {
                         neighbors.add(edge.getGoal());
                 }
         }
+        if(neighbors.size()==0)
+        	return null;
         Dijkstra dijkstra = new Dijkstra(g);
-        
+        List<Node> path;
         int max = 0;
         Node move = neighbors.get(0);
         for(int i=0;i<neighbors.size();i++){
         	int tempSum = 0;
-        	for(int j=0;j<detectives.size();j++)
-        		tempSum+=dijkstra.execute(detectives.get(j),neighbors.get(i)).size();
-        	if(max<tempSum)
-        	{
+        	for(int j=0;j<detectives.size();j++) {
+        		path = dijkstra.execute(detectives.get(j),neighbors.get(i));
+        		if(path != null)
+        			tempSum += path.size();
+        	}
+        	if(max<tempSum) {
         		max = tempSum;
         		move = neighbors.get(i);
         	}

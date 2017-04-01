@@ -13,6 +13,7 @@ public class GameMap extends PApplet {
 	PShape s;
 	int pos;
 	PImage background, xBoard;
+	boolean caught = false;
 	List<PImage> tickets = new ArrayList<PImage>();	//bus, taxi, underground, black, x2
 	
 	Graph g;
@@ -57,7 +58,7 @@ public class GameMap extends PApplet {
 			if(!g.getNodes().get(pos).occupied) {
 				dect.add(new Detective(g, g.getNodes().get(pos), i));
 				dect.get(i).getCurrentPosition().occupied = true;
-				System.out.println(g.getNodes().get(pos));
+				//System.out.println(g.getNodes().get(pos));
 			} else {
 				i--;
 			}
@@ -86,18 +87,11 @@ public class GameMap extends PApplet {
 			image(tickets.get(i), 1000, tickets.get(i).height*i);
 		}
 		
-		/*s = createShape();
-		s.beginShape();
-		s.stroke(0,0,255);
-		s.noFill();
-		s.strokeWeight(5);
-		s.vertex(0, 0);
-		s.bezierVertex(15, 0, 25, 20, 0, 20);
-		s.endShape(CLOSE);
-		shape(s, 47, 490);*/
+		if(frameCount % 100 == 0 && !caught) {
+			gameLoop();
+		}
 		
 		//detective
-		while(!isCaught())
 		for(int i=0; i<Number_of_Detectives; i++) {
 			stroke(colorMap.get(i)[0], colorMap.get(i)[1], colorMap.get(i)[2]);
 			noFill();
@@ -110,6 +104,39 @@ public class GameMap extends PApplet {
 		noFill();
 		strokeWeight(4);
 		rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
+	}
+	
+	public void gameLoop() {
+		List<Node> dectPos = new ArrayList<Node>();
+		List<Node> xPos = new ArrayList<Node>();
+		Node temp = new Node();
+		for(int i=0; i<dect.size(); i++) {
+			dectPos.add(dect.get(i).getCurrentPosition());
+		}
+		xPos.add(x.getCurrentPosition());
+		
+		Node next = x.greedyAlgorithm(dectPos);
+		if(next == null) {
+			caught = true;
+		} else {
+			x.setCurrentPosition(next);
+			xPos.set(0, next);
+		
+			for(int i=0; i<dect.size(); i++) {
+				System.out.print(i + " ");
+				next = dect.get(i).greedyAlgorithm(xPos);
+				if(next == null) {
+					caught = true;
+				} else {
+					dect.get(i).setCurrentPosition(next);
+					dectPos.set(i, next);
+				}
+			}
+			
+			if(x.isCaught(dectPos)) {
+				caught = true;
+			}
+		}
 	}
 
 }

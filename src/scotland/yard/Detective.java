@@ -40,15 +40,19 @@ public class Detective implements Player {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !current.getOccupied()) {
+                                && !edge.getGoal().getOccupied()) {
                         neighbors.add(edge.getGoal());
                 }
         }
-        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
-        current.occupied=false;
-        Node n = neighbors.get(r);
-        n.occupied = true;
-        return n;
+        if(neighbors.size() > 0) {
+	        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
+	        current.occupied=false;
+	        Node n = neighbors.get(r);
+	        n.occupied = true;
+	        return n;
+        } else {
+        	return null;
+        }
         
 	}
 
@@ -56,24 +60,30 @@ public class Detective implements Player {
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !current.getOccupied()) {
+                                && !edge.getGoal().getOccupied()) {
                         neighbors.add(edge.getGoal());
                 }
         } 
+        //System.out.println(" " + neighbors.size() + " " + mrX.get(0) + " " + neighbors.get(0));
         Dijkstra dijkstra = new Dijkstra(g);
-        int min = dijkstra.execute(mrX.get(0),neighbors.get(0)).size();
+        List<Node> path = dijkstra.execute(mrX.get(0),neighbors.get(0));
         Node closest = neighbors.get(0);
-        for(int i=0;i<neighbors.size();i++){
-        	if(min>dijkstra.execute(mrX.get(0),neighbors.get(i)).size())
-        	{
-        		if(!neighbors.get(i).occupied)
-        		{	min = dijkstra.execute(mrX.get(0),neighbors.get(i)).size();
-        			closest = neighbors.get(i);
-        		}
-        	}
-        	
+        if(path != null) {
+	        int min = path.size();
+	        for(int i=0;i<neighbors.size();i++){
+	        	//System.out.println(neighbors.get(i));
+	        	path = dijkstra.execute(mrX.get(0),neighbors.get(i));
+	        	if(path != null)
+		        	if(min>path.size())
+		        	{
+		        		if(!neighbors.get(i).occupied)
+		        		{	min = dijkstra.execute(mrX.get(0),neighbors.get(i)).size();
+		        			closest = neighbors.get(i);
+		        		}
+		        	}
+	        	
+	        }
         }
-        
         closest.occupied = true;
         current.occupied = false;
 		return closest;
