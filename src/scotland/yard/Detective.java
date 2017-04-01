@@ -19,6 +19,9 @@ public class Detective implements Player {
 	public Node getCurrentPosition() {
 		return current;
 	}
+	public void setCurrentPosition(Node n) {
+		this.current = n;
+	}
 
 	public Node randomAlgorithm() {
 		List<Node> neighbors = new ArrayList<Node>();
