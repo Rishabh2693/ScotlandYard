@@ -8,11 +8,21 @@ public class MrX implements Player {
 
 	Node current;
 	Graph g;
+	int tickets [] = new int [2];
 	/**
 	 * @param args
 	 */
 	MrX(Graph graph) {
 		this.g = graph;
+		tickets[0]=2;
+		tickets[1]=4;
+	}
+	public int getTickets(String s){
+		if(s.equals("2x"))
+			return tickets[0];
+		if(s.equals("black"))
+			return tickets[1];
+		return 0;
 	}
 	public Node getCurrentPosition() {
 		return current;
