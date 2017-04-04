@@ -148,6 +148,9 @@ public class GameMap extends PApplet {
 				} else {
 					//next = dect.get(i).greedyAlgorithm(xPos);
 					next = dect.get(i).gameTreeSearch(xPos, type);
+					if(next==null){
+						dect.add(dect.get(i));
+					}
 				}
 				if(next == null) {
 					caught = true;

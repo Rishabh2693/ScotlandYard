@@ -126,6 +126,9 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         
         Dijkstra dijkstra = new Dijkstra(g);
         int min = 10;
+        if(neighbors.size()==0){
+        	return null;
+        }
         Node closest = neighbors.get(0);
         for(int j =0; j < possible_locations.size(); j++)
         {
