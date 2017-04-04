@@ -10,6 +10,7 @@ public class Detective implements Player {
 	int id;
 	int []tickets = new int[3];
 	List<Node> possible_locations;
+	List<Node> temp = new ArrayList<Node>();
 	/**
 	 * @param args
 	 */
@@ -90,12 +91,17 @@ public class Detective implements Player {
 		return closest;
 	}
 
+	
 public Node gameTreeSearch(List<Node> last_mrX, char t) 
 {
 		List<Node> old_possible_locations = new ArrayList<Node>();
 		old_possible_locations = possible_locations;
+		
+		System.out.println(possible_locations);
 		if(old_possible_locations==null)
+		{
 			possible_locations = last_mrX;
+		}
 		else if(old_possible_locations.size()!=0)
 		{
 			possible_locations = new ArrayList<Node>();
@@ -110,10 +116,8 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 				} 
 			}
 		}
-		else if(last_mrX.size()==1)
-		{
-			possible_locations=last_mrX;
-		}
+		
+		
 		
 		// get Detective's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
@@ -148,10 +152,26 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         		else {
         			current.occupied = false;
         			possible_locations.get(j).occupied=true;
+        			
+        			if(temp.size()!=0 && temp.get(0)!=last_mrX.get(0))
+        			{	
+        	        	System.out.println("AM I HERE?");
+        				possible_locations = null;
+        			}
+        	        temp = last_mrX;
+        	        
         			return possible_locations.get(j);
         		}
         	}        	
         }
+        
+//        System.out.println(temp);
+        if(temp.size()!=0 && temp.get(0)!=last_mrX.get(0))
+		{	
+        	System.out.println("AM I HERE?");
+			possible_locations = null;
+		}
+        temp = last_mrX;
         
         closest.occupied = true;
         current.occupied = false;

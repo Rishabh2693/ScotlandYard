@@ -113,6 +113,7 @@ public class GameMap extends PApplet {
 	
 	public void gameLoop() {
 		xChance++;
+		System.out.println(xChance);
 		Node temp = new Node();
 		
 		if(xChance == 1) {
@@ -123,7 +124,8 @@ public class GameMap extends PApplet {
 		}
 		//xPos.add(x.getCurrentPosition());
 
-		Node next = x.gameTreeSearch(dectPos, 'a');
+//		Node next = x.gameTreeSearch(dectPos, 'a');
+		Node next = x.greedyAlgorithm(dectPos);
 		if(next == null) {
 			caught = true;
 		} else {
@@ -149,7 +151,12 @@ public class GameMap extends PApplet {
 					//next = dect.get(i).greedyAlgorithm(xPos);
 					next = dect.get(i).gameTreeSearch(xPos, type);
 					if(next==null){
-						dect.add(dect.get(i));
+						if(i+1>=dect.size())
+							continue;
+						Detective p = dect.get(i);
+						dect.set(i, dect.get(i+1));
+						dect.set(i+1,p);
+								
 					}
 				}
 				if(next == null) {
@@ -157,6 +164,7 @@ public class GameMap extends PApplet {
 				} else {
 					dect.get(i).setCurrentPosition(next);
 					dectPos.set(i, next);
+					
 				}
 			}
 			
