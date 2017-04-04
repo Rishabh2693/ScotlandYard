@@ -125,6 +125,7 @@ public class GameMap extends PApplet {
 		//xPos.add(x.getCurrentPosition());
 
 //		Node next = x.gameTreeSearch(dectPos, 'a');
+		//Node next = x.randomAlgorithm();
 		Node next = x.greedyAlgorithm(dectPos);
 		if(next == null) {
 			caught = true;
@@ -148,6 +149,7 @@ public class GameMap extends PApplet {
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {
+					//next = dect.get(i).randomAlgorithm();
 					//next = dect.get(i).greedyAlgorithm(xPos);
 					next = dect.get(i).gameTreeSearch(xPos, type);
 					if(next==null){
@@ -156,7 +158,7 @@ public class GameMap extends PApplet {
 						Detective p = dect.get(i);
 						dect.set(i, dect.get(i+1));
 						dect.set(i+1,p);
-								
+						i--;		
 					}
 				}
 				if(next == null) {
