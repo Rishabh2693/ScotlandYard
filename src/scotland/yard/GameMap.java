@@ -43,7 +43,7 @@ public class GameMap extends PApplet {
 		background = loadImage(path + "/src/ScotlandYardBG.jpg");
 		background.resize(1000, 800);
 		
-		xBoard = loadImage(path + "/src/log.jpg");
+		xBoard = loadImage(path + "/src/log.jpeg");
 		tickets.add(loadImage(path + "/src/bus.png"));
 		tickets.add(loadImage(path + "/src/taxi.png"));
 		tickets.add(loadImage(path + "/src/underground.png"));
@@ -51,7 +51,7 @@ public class GameMap extends PApplet {
 		tickets.add(loadImage(path + "/src/2x.png"));
 		
 		for(int i=0; i<tickets.size(); i++) {
-			tickets.get(i).resize(45, 25);
+			tickets.get(i).resize(45, 28);
 		}
 		
 		//assign random positions to detectives
@@ -85,10 +85,16 @@ public class GameMap extends PApplet {
 
 	public void draw() {
 		image(background, 0, 0);
-		image(xBoard, 1000, 550);
-		for(int i=0; i<tickets.size(); i++) {
-			image(tickets.get(i), 1000, tickets.get(i).height*i);
-		}
+		xBoard.resize(200, 250);
+		image(xBoard, 1000, 0);
+		image(tickets.get(0), 1015, 20);
+		image(tickets.get(4), 1015, 20+28);
+		image(tickets.get(3), 1015, 20+56);
+		image(tickets.get(1), 1015+45+20, 20);
+		image(tickets.get(1), 1015+45+20, 20+28);
+		//for(int i=0; i<tickets.size(); i++) {
+			//image(tickets.get(i), 1000, tickets.get(i).height*i);
+		//}
 		
 		if(frameCount % 100 == 0 && !caught && xChance < 23) {
 			gameLoop();
