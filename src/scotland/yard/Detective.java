@@ -310,12 +310,7 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         				possible_locations = null;
         			}
         	        temp=last_mrX.get(0).getId();
-        	        g.addEdge(107, 114);
-        			g.addEdge(156, 114);
-        			g.addEdge(114, 156);
-        			g.addEdge(114, 107);
-        			g.addEdge(156, 193);
-        			g.addEdge(193, 156);
+        	        
         			
         			for (Edge edge : g.getEdges()) {
         	            if (edge.getSource().equals(current)
@@ -330,6 +325,13 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         	            	
         	            }
         			}
+        			
+        			g.addEdge(107, 114);
+        			g.addEdge(156, 114);
+        			g.addEdge(114, 156);
+        			g.addEdge(114, 107);
+        			g.addEdge(156, 193);
+        			g.addEdge(193, 156);
         			return neighbors.get(i);
         		}
         	}        	
@@ -345,12 +347,7 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         
         closest.occupied = true;
         current.occupied = false;
-        g.addEdge(107, 114);
-		g.addEdge(156, 114);
-		g.addEdge(114, 156);
-		g.addEdge(114, 107);
-		g.addEdge(156, 193);
-		g.addEdge(193, 156);
+        
 		
 		for (Edge edge : g.getEdges()) {
             if (edge.getSource().equals(current)
@@ -359,6 +356,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
             	break;
             }
 		}
+		g.addEdge(107, 114);
+		g.addEdge(156, 114);
+		g.addEdge(114, 156);
+		g.addEdge(114, 107);
+		g.addEdge(156, 193);
+		g.addEdge(193, 156);
 		return closest;
         
 	}
