@@ -352,8 +352,13 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 		for (Edge edge : g.getEdges()) {
             if (edge.getSource().equals(current)
                             && edge.getGoal().equals(closest)) {
-            	tickets[type_to_index(edge.getType())]--;
-            	break;
+            	if(tickets[type_to_index(edge.getType())]==0)
+            		continue;
+            	else
+            	{
+            		tickets[type_to_index(edge.getType())]--;
+            		break;
+            	}
             }
 		}
 		g.addEdge(107, 114);
