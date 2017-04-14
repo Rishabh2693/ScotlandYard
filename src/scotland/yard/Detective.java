@@ -84,12 +84,7 @@ public class Detective implements Player {
 			g.addEdge(193, 156);
         	return new Node(666, "Chindi", 0, 0);
         }
-        g.addEdge(107, 114);
-		g.addEdge(156, 114);
-		g.addEdge(114, 156);
-		g.addEdge(114, 107);
-		g.addEdge(156, 193);
-		g.addEdge(193, 156);
+       
         if(neighbors.size() > 0) {
 	        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
 	        current.occupied=false;
@@ -108,7 +103,12 @@ public class Detective implements Player {
                 	}
                 }
         }
-	        
+	        g.addEdge(107, 114);
+			g.addEdge(156, 114);
+			g.addEdge(114, 156);
+			g.addEdge(114, 107);
+			g.addEdge(156, 193);
+			g.addEdge(193, 156);
 	        return n;
         } else {
         	return null;

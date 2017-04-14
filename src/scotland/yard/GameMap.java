@@ -107,7 +107,7 @@ public class GameMap extends PApplet {
 			//image(tickets.get(i), 1000, tickets.get(i).height*i);
 		//}
 		
-		if(frameCount % 100 == 0 && !caught && xChance < 23) {
+		if(frameCount % 10 == 0 && !caught && xChance < 23) {
 			gameLoop();
 		}
 		
