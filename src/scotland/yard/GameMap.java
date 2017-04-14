@@ -19,7 +19,7 @@ public class GameMap extends PApplet {
 	boolean caught = false;
 	List<PImage> tickets = new ArrayList<PImage>();	//bus, taxi, underground, black, x2
 	
-	Graph g;
+	SmallGraph g;
 	int Number_of_Detectives = 5;
 	List<Detective> dect = new ArrayList<Detective>();
 	MrX x;

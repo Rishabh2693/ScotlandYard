@@ -6,7 +6,7 @@ import java.util.List;
 public class Detective implements Player {
 
 	Node current;
-	Graph g;
+	SmallGraph g;
 	int id;
 	int []tickets = new int[3];
 	List<Node> possible_locations;
@@ -14,7 +14,7 @@ public class Detective implements Player {
 	/**
 	 * @param args
 	 */
-	Detective(Graph g, Node n,int id){
+	Detective(SmallGraph g, Node n,int id){
 		this.g = g;
 		this.current = n;
 		this.id = id;
@@ -39,6 +39,12 @@ public class Detective implements Player {
 	}
 
 	public Node randomAlgorithm() {
+		g.removeEdge(108, 115);
+		g.removeEdge(157, 115);
+		g.removeEdge(115, 157);
+		g.removeEdge(115, 108);
+		g.removeEdge(157, 194);
+		g.removeEdge(194, 157);
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
@@ -46,6 +52,13 @@ public class Detective implements Player {
                         neighbors.add(edge.getGoal());
                 }
         }
+        
+        g.addEdge(108, 115);
+		g.addEdge(157, 115);
+		g.addEdge(115, 157);
+		g.addEdge(115, 108);
+		g.addEdge(157, 194);
+		g.addEdge(194, 157);
         if(neighbors.size() > 0) {
 	        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
 	        current.occupied=false;
@@ -60,6 +73,12 @@ public class Detective implements Player {
 
 	public Node greedyAlgorithm(List<Node> mrX) {
 		List<Node> neighbors = new ArrayList<Node>();
+		g.removeEdge(108, 115);
+		g.removeEdge(157, 115);
+		g.removeEdge(115, 157);
+		g.removeEdge(115, 108);
+		g.removeEdge(157, 194);
+		g.removeEdge(194, 157);
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied()) {
@@ -88,6 +107,12 @@ public class Detective implements Player {
         }
         closest.occupied = true;
         current.occupied = false;
+        g.addEdge(108, 115);
+		g.addEdge(157, 115);
+		g.addEdge(115, 157);
+		g.addEdge(115, 108);
+		g.addEdge(157, 194);
+		g.addEdge(194, 157);
 		return closest;
 	}
 
@@ -119,6 +144,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 			}
 		}
 		
+		g.removeEdge(108, 115);
+		g.removeEdge(157, 115);
+		g.removeEdge(115, 157);
+		g.removeEdge(115, 108);
+		g.removeEdge(157, 194);
+		g.removeEdge(194, 157);
 		// get Detective's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
@@ -160,7 +191,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         				possible_locations = null;
         			}
         	        temp=last_mrX.get(0).getId();
-        	        
+        	        g.addEdge(108, 115);
+        			g.addEdge(157, 115);
+        			g.addEdge(115, 157);
+        			g.addEdge(115, 108);
+        			g.addEdge(157, 194);
+        			g.addEdge(194, 157);
         			return neighbors.get(i);
         		}
         	}        	
@@ -176,6 +212,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         
         closest.occupied = true;
         current.occupied = false;
+        g.addEdge(108, 115);
+		g.addEdge(157, 115);
+		g.addEdge(115, 157);
+		g.addEdge(115, 108);
+		g.addEdge(157, 194);
+		g.addEdge(194, 157);
 		return closest;
         
 	}

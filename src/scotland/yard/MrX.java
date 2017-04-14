@@ -7,12 +7,12 @@ import java.util.Random;
 public class MrX implements Player {
 
 	Node current;
-	Graph g;
+	SmallGraph g;
 	int tickets [] = new int [2];
 	/**
 	 * @param args
 	 */
-	MrX(Graph graph) {
+	MrX(SmallGraph graph) {
 		this.g = graph;
 		tickets[0]=2;
 		tickets[1]=4;
@@ -158,7 +158,12 @@ public class MrX implements Player {
 	public Node gameTreeSearch(List<Node> detectives, char t) 
 	{
 		List<Node> possible_locations = new ArrayList<Node>();
-			
+		g.removeEdge(108, 115);
+		g.removeEdge(157, 115);
+		g.removeEdge(115, 157);
+		g.removeEdge(115, 108);
+		g.removeEdge(157, 194);
+		g.removeEdge(194, 157);	
 		for(int i =0; i < detectives.size();i++)
 		{
 			// Find all edges from detectives positions to next
@@ -170,7 +175,12 @@ public class MrX implements Player {
 	                }
 				} 	
 			}
-		
+		g.addEdge(108, 115);
+		g.addEdge(157, 115);
+		g.addEdge(115, 157);
+		g.addEdge(115, 108);
+		g.addEdge(157, 194);
+		g.addEdge(194, 157);
 		// get X's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {

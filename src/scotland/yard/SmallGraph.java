@@ -82,6 +82,18 @@ public class SmallGraph implements Graph {
 	public List<Edge> getEdges() {
         return edgess;
 	}
+	
+	public void removeEdge(int sourceNo,int destNo){
+		for(int i=0;i<edgess.size();i++){
+			if(edgess.get(i).getSource().getId()==sourceNo && edgess.get(i).getSource().getId()==destNo){
+				edgess.remove(i);
+			}
+		}
+	}
+	public void addEdge(int sourceNo,int destNo){
+		edgess.add(new Edge(nodess.get(sourceNo), nodess.get(destNo),1, 'K'));
+	}
+	
 	public static void main(String args[]){
 		/*SmallGraph g = new SmallGraph();
 		List<Node> a = g.getNodes();
