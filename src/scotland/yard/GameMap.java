@@ -23,6 +23,8 @@ public class GameMap extends PApplet {
 	int Number_of_Detectives = 5;
 	List<Detective> dect = new ArrayList<Detective>();
 	MrX x;
+	char type;
+	List<Character> ticket_used = new ArrayList<Character>();
 	
 	int[] startNodes = {13, 26, 29, 34, 50, 53, 91, 94, 103, 112, 117, 132, 138, 141, 155, 174, 197, 198};
 	HashMap<Integer, int[]> colorMap = new HashMap<Integer, int[]>();
@@ -87,11 +89,20 @@ public class GameMap extends PApplet {
 		image(background, 0, 0);
 		xBoard.resize(200, 250);
 		image(xBoard, 1000, 0);
-		image(tickets.get(0), 1015, 20);
-		image(tickets.get(4), 1015, 20+28);
-		image(tickets.get(3), 1015, 20+56);
-		image(tickets.get(1), 1015+45+20, 20);
-		image(tickets.get(1), 1015+45+20, 20+28);
+		
+		// Draw ticket on MrX Board
+		for(int i = 0; i < ticket_used.size(); i++)
+		{
+			if(ticket_used.get(i)=='B')
+				image(tickets.get(0), 1015+65*((i)/8), 20+28*((i)%8));
+			else if(ticket_used.get(i)=='T')
+				image(tickets.get(1), 1015+65*((i)/8), 20+28*((i)%8));
+			else if(ticket_used.get(i)=='U')
+				image(tickets.get(2), 1015+65*((i)/8), 20+28*((i)%8));
+			else if(ticket_used.get(i)=='K')
+				image(tickets.get(3), 1015+65*((i)/8), 20+28*((i)%8));
+		}
+		
 		//for(int i=0; i<tickets.size(); i++) {
 			//image(tickets.get(i), 1000, tickets.get(i).height*i);
 		//}
@@ -109,16 +120,17 @@ public class GameMap extends PApplet {
 		}
 				
 		//mrX
-		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
+//		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
 			stroke(255);
 			noFill();
 			strokeWeight(4);
 			rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
-		}
+//		}
 	}
 	
 	public void gameLoop() {
 		xChance++;
+		
 		System.out.println(xChance);
 		Node temp = new Node();
 		
@@ -132,6 +144,7 @@ public class GameMap extends PApplet {
 
 //		Node next = x.gameTreeSearch(dectPos, 'a');
 		//Node next = x.randomAlgorithm();
+		lastPos = x.current;
 		Node next = x.greedyAlgorithm(dectPos);
 		if(next == null) {
 			caught = true;
@@ -140,15 +153,19 @@ public class GameMap extends PApplet {
 			if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23) {
 				xPos.set(0, next);
 			}
-			lastPos = next;
-			char type = 'T';
-			if(xChance>1){
+//			lastPos = next;
+			type = 'T';
+			if(xChance>=1){
 			for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(lastPos)&& edge.getGoal().equals(next)) {
                         type = edge.getType();
+                        ticket_used.add(type);
+//                        System.out.println("Aaya yahaa pe" + type);
                 }
 			} 
 			}
+			
+			
 			lastPos = next;
 			for(int i=0; i<dect.size(); i++) {
 				System.out.println(dect.size());
