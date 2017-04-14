@@ -120,12 +120,12 @@ public class GameMap extends PApplet {
 		}
 				
 		//mrX
-		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
+//		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
 			stroke(255);
 			noFill();
 			strokeWeight(4);
 			rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
-		}
+//		}
 	}
 	
 	public void gameLoop() {
@@ -166,7 +166,6 @@ public class GameMap extends PApplet {
 			} 
 			}
 			
-			
 			lastPos = next;
 			stroke(255);
 			fill(0);
@@ -174,6 +173,7 @@ public class GameMap extends PApplet {
 			for(int i=0; i<dect.size(); i++) {
 				textSize(12);
 //				System.out.println(dect.size());
+//				System.out.println(i);
 				int no = i+1;
 				fill(colorMap.get(i)[0], colorMap.get(i)[1], colorMap.get(i)[2]);
 				text("Detective "+no, 1025, 300+(i*55));
@@ -184,29 +184,20 @@ public class GameMap extends PApplet {
 					next = dect.get(i).randomAlgorithm();
 				} 
 				else {
-					//next = dect.get(i).randomAlgorithm();
-					next = dect.get(i).greedyAlgorithm(xPos);
+					next = dect.get(i).randomAlgorithm();
+//					next = dect.get(i).greedyAlgorithm(xPos);
 //					next = dect.get(i).gameTreeSearch(xPos, type);
-					if(next==null){
-						if(i+1>=dect.size())
-							continue;
-						Detective p = dect.get(i);
-						dect.set(i, dect.get(i+1));
-						dect.set(i+1,p);
-						i--;		
-					}
-					else if(next.getId()==666)
-					{
-						continue;
+					if(next==null || next.getId()==666){
+						continue;	
 					}
 					
 				}
 				if(next == null) {
-					caught = true;
-					textSize(20);
-					fill(0);
-					text("Game Over!", 1050, 650);
-					text("Detectives Wins!", 1020, 700);
+//					caught = true;
+//					textSize(20);
+//					fill(0);
+//					text("Game Over!", 1050, 650);
+//					text("Detectives Wins!", 1020, 700);
 				} else {
 					dect.get(i).setCurrentPosition(next);
 					dectPos.set(i, next);
@@ -216,6 +207,7 @@ public class GameMap extends PApplet {
 			
 			if(x.isCaught(dectPos)) {
 				caught = true;
+				System.out.println("Here");
 				textSize(20);
 				fill(0);
 				text("Game Over!", 1050, 650);
