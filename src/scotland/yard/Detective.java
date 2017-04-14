@@ -37,6 +37,18 @@ public class Detective implements Player {
 	public void setCurrentPosition(Node n) {
 		this.current = n;
 	}
+	
+	public int type_to_index(char t)
+	{
+		if(t == 'T')
+			return 0;
+		else if(t=='B')
+			return 1;
+		else if(t == 'U')
+			return 2;
+		else
+			return 0;
+	}
 
 	public Node randomAlgorithm() {
 		g.removeEdge(107, 114);
@@ -46,13 +58,32 @@ public class Detective implements Player {
 		g.removeEdge(156, 193);
 		g.removeEdge(193, 156);
 		List<Node> neighbors = new ArrayList<Node>();
+		int flag = 0;
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !edge.getGoal().getOccupied()) {
-                        neighbors.add(edge.getGoal());
+                                && !edge.getGoal().getOccupied() && tickets[type_to_index(edge.getType())]>0) {
+                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+            		{	
+            			flag =1;
+            		}
+            		else
+            		{
+            			neighbors.add(edge.getGoal());
+            			flag =0;
+            		}
                 }
         }
         
+        if(flag ==1)
+        {
+        	g.addEdge(107, 114);
+			g.addEdge(156, 114);
+			g.addEdge(114, 156);
+			g.addEdge(114, 107);
+			g.addEdge(156, 193);
+			g.addEdge(193, 156);
+        	return new Node(666, "Chindi", 0, 0);
+        }
         g.addEdge(107, 114);
 		g.addEdge(156, 114);
 		g.addEdge(114, 156);
@@ -64,6 +95,14 @@ public class Detective implements Player {
 	        current.occupied=false;
 	        Node n = neighbors.get(r);
 	        n.occupied = true;
+	        
+	        for (Edge edge : g.getEdges()) {
+                if (edge.getSource().equals(current)
+                                && edge.getGoal().equals(n)) {
+                	tickets[type_to_index(edge.getType())]--;
+                }
+        }
+	        
 	        return n;
         } else {
         	return null;
@@ -79,13 +118,46 @@ public class Detective implements Player {
 		g.removeEdge(114, 107);
 		g.removeEdge(156, 193);
 		g.removeEdge(193, 156);
+		int flag =0;
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied()) {
-                        neighbors.add(edge.getGoal());
+                	
+                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+            		{	
+            			flag =1;
+            		}
+            		else
+            		{
+            			neighbors.add(edge.getGoal());
+            			flag =0;
+            		}
                 }
         } 
         //System.out.println(" " + neighbors.size() + " " + mrX.get(0) + " " + neighbors.get(0));
+        
+        if(flag ==1)
+        {
+        	g.addEdge(107, 114);
+			g.addEdge(156, 114);
+			g.addEdge(114, 156);
+			g.addEdge(114, 107);
+			g.addEdge(156, 193);
+			g.addEdge(193, 156);
+        	return new Node(666, "Chindi", 0, 0);
+        }
+        
+        if(neighbors.size()==0)
+        {
+        	g.addEdge(107, 114);
+    		g.addEdge(156, 114);
+    		g.addEdge(114, 156);
+    		g.addEdge(114, 107);
+    		g.addEdge(156, 193);
+    		g.addEdge(193, 156);
+    		
+        	return null;
+        }
         Dijkstra dijkstra = new Dijkstra(g);
         List<Node> path = dijkstra.execute(mrX.get(0),neighbors.get(0));
         Node closest = neighbors.get(0);
@@ -113,6 +185,14 @@ public class Detective implements Player {
 		g.addEdge(114, 107);
 		g.addEdge(156, 193);
 		g.addEdge(193, 156);
+		
+		for (Edge edge : g.getEdges()) {
+            if (edge.getSource().equals(current)
+                            && edge.getGoal().equals(closest)) {
+            	tickets[type_to_index(edge.getType())]--;
+            }
+		}
+            
 		return closest;
 	}
 
@@ -151,14 +231,33 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 		g.removeEdge(156, 193);
 		g.removeEdge(193, 156);
 		// get Detective's neighbours
+		int flag =0;
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
-                                && !edge.getGoal().getOccupied()) {
-                        neighbors.add(edge.getGoal());
+                                && !edge.getGoal().getOccupied() ) {
+                		if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+                		{	
+                			flag =1;
+                		}
+                		else
+                		{
+                			neighbors.add(edge.getGoal());
+                			flag =0;
+                		}
                 }
         } 
         
+        if(flag ==1)
+        {
+        	g.addEdge(107, 114);
+			g.addEdge(156, 114);
+			g.addEdge(114, 156);
+			g.addEdge(114, 107);
+			g.addEdge(156, 193);
+			g.addEdge(193, 156);
+        	return new Node(666, "Chindi", 0, 0);
+        }
         Dijkstra dijkstra = new Dijkstra(g);
         int min = 10;
         if(neighbors.size()==0){
@@ -225,6 +324,13 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 		g.addEdge(114, 107);
 		g.addEdge(156, 193);
 		g.addEdge(193, 156);
+		
+		for (Edge edge : g.getEdges()) {
+            if (edge.getSource().equals(current)
+                            && edge.getGoal().equals(closest)) {
+            	tickets[type_to_index(edge.getType())]--;
+            }
+		}
 		return closest;
         
 	}

@@ -57,7 +57,7 @@ public class MrX implements Player {
 				}
 			}
 		}
-		n = g.getNodes().get(114);
+//		n = g.getNodes().get(114);
 		this.current = n;
 	}
  

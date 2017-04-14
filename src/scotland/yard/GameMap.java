@@ -161,7 +161,7 @@ public class GameMap extends PApplet {
                 if (edge.getSource().equals(lastPos)&& edge.getGoal().equals(next)) {
                         type = edge.getType();
                         ticket_used.add(type);
-                        System.out.println("NOw : "+edge.getSource().getId() + type);
+//                        System.out.println("NOw : "+edge.getSource().getId() + type);
                         break;
                 }
 			} 
@@ -171,9 +171,12 @@ public class GameMap extends PApplet {
 			lastPos = next;
 			for(int i=0; i<dect.size(); i++) {
 //				System.out.println(dect.size());
+				if(i==0)
+					System.out.println(dect.get(i).tickets[0]+" "+dect.get(i).tickets[1]+" "+dect.get(i).tickets[2]);
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
-				} else {
+				} 
+				else {
 					//next = dect.get(i).randomAlgorithm();
 					next = dect.get(i).greedyAlgorithm(xPos);
 //					next = dect.get(i).gameTreeSearch(xPos, type);
@@ -185,6 +188,11 @@ public class GameMap extends PApplet {
 						dect.set(i+1,p);
 						i--;		
 					}
+					else if(next.getId()==666)
+					{
+						continue;
+					}
+					
 				}
 				if(next == null) {
 					caught = true;
