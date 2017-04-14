@@ -57,7 +57,7 @@ public class MrX implements Player {
 				}
 			}
 		}
-		n = g.getNodes().get(115);
+		n = g.getNodes().get(114);
 		this.current = n;
 	}
  
@@ -159,12 +159,12 @@ public class MrX implements Player {
 	public Node gameTreeSearch(List<Node> detectives, char t) 
 	{
 		List<Node> possible_locations = new ArrayList<Node>();
-		g.removeEdge(108, 115);
-		g.removeEdge(157, 115);
-		g.removeEdge(115, 157);
-		g.removeEdge(115, 108);
-		g.removeEdge(157, 194);
-		g.removeEdge(194, 157);	
+		g.removeEdge(107, 114);
+		g.removeEdge(156, 114);
+		g.removeEdge(114, 156);
+		g.removeEdge(114, 107);
+		g.removeEdge(156, 193);
+		g.removeEdge(193, 156);
 		for(int i =0; i < detectives.size();i++)
 		{
 			// Find all edges from detectives positions to next
@@ -176,12 +176,12 @@ public class MrX implements Player {
 	                }
 				} 	
 			}
-		g.addEdge(108, 115);
-		g.addEdge(157, 115);
-		g.addEdge(115, 157);
-		g.addEdge(115, 108);
-		g.addEdge(157, 194);
-		g.addEdge(194, 157);
+		g.addEdge(107, 114);
+		g.addEdge(156, 114);
+		g.addEdge(114, 156);
+		g.addEdge(114, 107);
+		g.addEdge(156, 193);
+		g.addEdge(193, 156);
 		// get X's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
@@ -194,11 +194,14 @@ public class MrX implements Player {
         if(neighbors.size()==0 || possible_locations.size()==0)
         	return null;
         
+        
+        
         Dijkstra dijkstra = new Dijkstra(g);
         int max = 0;
         int min = 10;
         Node farthest = neighbors.get(0);
         Node closest_detective = possible_locations.get(0);
+        
         // Find neighbor of detective closest to X
         for(int j =0; j < possible_locations.size(); j++)
         {

@@ -85,7 +85,7 @@ public class SmallGraph implements Graph {
 	
 	public void removeEdge(int sourceNo,int destNo){
 		for(int i=0;i<edgess.size();i++){
-			if(edgess.get(i).getSource().getId()==sourceNo && edgess.get(i).getSource().getId()==destNo){
+			if(edgess.get(i).getSource().getId()==sourceNo && edgess.get(i).getGoal().getId()==destNo){
 				edgess.remove(i);
 			}
 		}

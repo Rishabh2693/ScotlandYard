@@ -142,10 +142,11 @@ public class GameMap extends PApplet {
 		}
 		//xPos.add(x.getCurrentPosition());
 
-//		Node next = x.gameTreeSearch(dectPos, 'a');
-		//Node next = x.randomAlgorithm();
 		lastPos = x.current;
-		Node next = x.greedyAlgorithm(dectPos);
+//		Node next = x.gameTreeSearch(dectPos, 'a');
+//		Node next = x.randomAlgorithm();
+	
+		Node next = x.greedyAlgorithm1(dectPos);
 		if(next == null) {
 			caught = true;
 		} else {
@@ -160,7 +161,8 @@ public class GameMap extends PApplet {
                 if (edge.getSource().equals(lastPos)&& edge.getGoal().equals(next)) {
                         type = edge.getType();
                         ticket_used.add(type);
-//                        System.out.println("Aaya yahaa pe" + type);
+                        System.out.println("NOw : "+edge.getSource().getId() + type);
+                        break;
                 }
 			} 
 			}
@@ -168,13 +170,13 @@ public class GameMap extends PApplet {
 			
 			lastPos = next;
 			for(int i=0; i<dect.size(); i++) {
-				System.out.println(dect.size());
+//				System.out.println(dect.size());
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} else {
 					//next = dect.get(i).randomAlgorithm();
-					//next = dect.get(i).greedyAlgorithm(xPos);
-					next = dect.get(i).gameTreeSearch(xPos, type);
+					next = dect.get(i).greedyAlgorithm(xPos);
+//					next = dect.get(i).gameTreeSearch(xPos, type);
 					if(next==null){
 						if(i+1>=dect.size())
 							continue;

@@ -39,12 +39,12 @@ public class Detective implements Player {
 	}
 
 	public Node randomAlgorithm() {
-		g.removeEdge(108, 115);
-		g.removeEdge(157, 115);
-		g.removeEdge(115, 157);
-		g.removeEdge(115, 108);
-		g.removeEdge(157, 194);
-		g.removeEdge(194, 157);
+		g.removeEdge(107, 114);
+		g.removeEdge(156, 114);
+		g.removeEdge(114, 156);
+		g.removeEdge(114, 107);
+		g.removeEdge(156, 193);
+		g.removeEdge(193, 156);
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
@@ -53,12 +53,12 @@ public class Detective implements Player {
                 }
         }
         
-        g.addEdge(108, 115);
-		g.addEdge(157, 115);
-		g.addEdge(115, 157);
-		g.addEdge(115, 108);
-		g.addEdge(157, 194);
-		g.addEdge(194, 157);
+        g.addEdge(107, 114);
+		g.addEdge(156, 114);
+		g.addEdge(114, 156);
+		g.addEdge(114, 107);
+		g.addEdge(156, 193);
+		g.addEdge(193, 156);
         if(neighbors.size() > 0) {
 	        int r = (int) Math.floor((0+Math.random()*(neighbors.size()-0.01)));
 	        current.occupied=false;
@@ -73,12 +73,12 @@ public class Detective implements Player {
 
 	public Node greedyAlgorithm(List<Node> mrX) {
 		List<Node> neighbors = new ArrayList<Node>();
-		g.removeEdge(108, 115);
-		g.removeEdge(157, 115);
-		g.removeEdge(115, 157);
-		g.removeEdge(115, 108);
-		g.removeEdge(157, 194);
-		g.removeEdge(194, 157);
+		g.removeEdge(107, 114);
+		g.removeEdge(156, 114);
+		g.removeEdge(114, 156);
+		g.removeEdge(114, 107);
+		g.removeEdge(156, 193);
+		g.removeEdge(193, 156);
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied()) {
@@ -107,12 +107,12 @@ public class Detective implements Player {
         }
         closest.occupied = true;
         current.occupied = false;
-        g.addEdge(108, 115);
-		g.addEdge(157, 115);
-		g.addEdge(115, 157);
-		g.addEdge(115, 108);
-		g.addEdge(157, 194);
-		g.addEdge(194, 157);
+        g.addEdge(107, 114);
+		g.addEdge(156, 114);
+		g.addEdge(114, 156);
+		g.addEdge(114, 107);
+		g.addEdge(156, 193);
+		g.addEdge(193, 156);
 		return closest;
 	}
 
@@ -144,12 +144,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
 			}
 		}
 		
-		g.removeEdge(108, 115);
-		g.removeEdge(157, 115);
-		g.removeEdge(115, 157);
-		g.removeEdge(115, 108);
-		g.removeEdge(157, 194);
-		g.removeEdge(194, 157);
+		g.removeEdge(107, 114);
+		g.removeEdge(156, 114);
+		g.removeEdge(114, 156);
+		g.removeEdge(114, 107);
+		g.removeEdge(156, 193);
+		g.removeEdge(193, 156);
 		// get Detective's neighbours
 		List<Node> neighbors = new ArrayList<Node>();
         for (Edge edge : g.getEdges()) {
@@ -162,6 +162,13 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         Dijkstra dijkstra = new Dijkstra(g);
         int min = 10;
         if(neighbors.size()==0){
+        	g.addEdge(107, 114);
+			g.addEdge(156, 114);
+			g.addEdge(114, 156);
+			g.addEdge(114, 107);
+			g.addEdge(156, 193);
+			g.addEdge(193, 156);
+			
         	return null;
         }
         Node closest = neighbors.get(0);
@@ -187,16 +194,16 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         			
         			if(temp!=0 && temp!=last_mrX.get(0).getId())
         			{	
-        	        	System.out.println("AM I HERE?");
+//        	        	System.out.println("AM I HERE?");
         				possible_locations = null;
         			}
         	        temp=last_mrX.get(0).getId();
-        	        g.addEdge(108, 115);
-        			g.addEdge(157, 115);
-        			g.addEdge(115, 157);
-        			g.addEdge(115, 108);
-        			g.addEdge(157, 194);
-        			g.addEdge(194, 157);
+        	        g.addEdge(107, 114);
+        			g.addEdge(156, 114);
+        			g.addEdge(114, 156);
+        			g.addEdge(114, 107);
+        			g.addEdge(156, 193);
+        			g.addEdge(193, 156);
         			return neighbors.get(i);
         		}
         	}        	
@@ -212,12 +219,12 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         
         closest.occupied = true;
         current.occupied = false;
-        g.addEdge(108, 115);
-		g.addEdge(157, 115);
-		g.addEdge(115, 157);
-		g.addEdge(115, 108);
-		g.addEdge(157, 194);
-		g.addEdge(194, 157);
+        g.addEdge(107, 114);
+		g.addEdge(156, 114);
+		g.addEdge(114, 156);
+		g.addEdge(114, 107);
+		g.addEdge(156, 193);
+		g.addEdge(193, 156);
 		return closest;
         
 	}
