@@ -62,7 +62,7 @@ public class Detective implements Player {
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied() && tickets[type_to_index(edge.getType())]>0) {
-                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()<=0)
             		{	
             			flag =1;
             		}
@@ -100,6 +100,7 @@ public class Detective implements Player {
                 if (edge.getSource().equals(current)
                                 && edge.getGoal().equals(n)) {
                 	tickets[type_to_index(edge.getType())]--;
+                	break;
                 }
         }
 	        
@@ -123,7 +124,7 @@ public class Detective implements Player {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied()) {
                 	
-                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+                	if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()<=0)
             		{	
             			flag =1;
             		}
@@ -179,19 +180,21 @@ public class Detective implements Player {
         }
         closest.occupied = true;
         current.occupied = false;
+        
+        
+        for (Edge edge : g.getEdges()) {
+            if (edge.getSource().equals(current)
+                            && edge.getGoal().equals(closest)) {
+            	tickets[type_to_index(edge.getType())]--;
+            	break;
+            }
+		}
         g.addEdge(107, 114);
 		g.addEdge(156, 114);
 		g.addEdge(114, 156);
 		g.addEdge(114, 107);
 		g.addEdge(156, 193);
 		g.addEdge(193, 156);
-		
-		for (Edge edge : g.getEdges()) {
-            if (edge.getSource().equals(current)
-                            && edge.getGoal().equals(closest)) {
-            	tickets[type_to_index(edge.getType())]--;
-            }
-		}
             
 		return closest;
 	}
@@ -236,7 +239,7 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         for (Edge edge : g.getEdges()) {
                 if (edge.getSource().equals(current)
                                 && !edge.getGoal().getOccupied() ) {
-                		if(tickets[type_to_index(edge.getType())]==0 && neighbors.size()==0)
+                		if(tickets[type_to_index(edge.getType())]<=0 && neighbors.size()==0)
                 		{	
                 			flag =1;
                 		}
@@ -303,6 +306,14 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
         			g.addEdge(114, 107);
         			g.addEdge(156, 193);
         			g.addEdge(193, 156);
+        			
+        			for (Edge edge : g.getEdges()) {
+        	            if (edge.getSource().equals(current)
+        	                            && edge.getGoal().equals(neighbors.get(i))) {
+        	            	tickets[type_to_index(edge.getType())]--;
+        	            	break;
+        	            }
+        			}
         			return neighbors.get(i);
         		}
         	}        	
@@ -329,6 +340,7 @@ public Node gameTreeSearch(List<Node> last_mrX, char t)
             if (edge.getSource().equals(current)
                             && edge.getGoal().equals(closest)) {
             	tickets[type_to_index(edge.getType())]--;
+            	break;
             }
 		}
 		return closest;

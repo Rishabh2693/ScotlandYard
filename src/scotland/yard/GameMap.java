@@ -120,12 +120,12 @@ public class GameMap extends PApplet {
 		}
 				
 		//mrX
-//		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
+		if(xChance == 3 || xChance == 8 || xChance == 13 || xChance == 18 || xChance == 23 || caught) {
 			stroke(255);
 			noFill();
 			strokeWeight(4);
 			rect(x.getCurrentPosition().getX()-10, x.getCurrentPosition().getY()-10, 20, 20);
-//		}
+		}
 	}
 	
 	public void gameLoop() {
@@ -145,7 +145,6 @@ public class GameMap extends PApplet {
 		lastPos = x.current;
 //		Node next = x.gameTreeSearch(dectPos, 'a');
 //		Node next = x.randomAlgorithm();
-	
 		Node next = x.greedyAlgorithm1(dectPos);
 		if(next == null) {
 			caught = true;
