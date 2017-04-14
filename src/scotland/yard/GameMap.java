@@ -172,6 +172,7 @@ public class GameMap extends PApplet {
 			fill(0);
 			rect(1015, 280, 150, 280);
 			for(int i=0; i<dect.size(); i++) {
+				textSize(12);
 //				System.out.println(dect.size());
 				int no = i+1;
 				fill(colorMap.get(i)[0], colorMap.get(i)[1], colorMap.get(i)[2]);
