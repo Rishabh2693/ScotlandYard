@@ -168,10 +168,17 @@ public class GameMap extends PApplet {
 			
 			
 			lastPos = next;
+			stroke(255);
+			fill(0);
+			rect(1015, 280, 150, 280);
 			for(int i=0; i<dect.size(); i++) {
 //				System.out.println(dect.size());
-				if(i==0)
-					System.out.println(dect.get(i).tickets[0]+" "+dect.get(i).tickets[1]+" "+dect.get(i).tickets[2]);
+				int no = i+1;
+				fill(colorMap.get(i)[0], colorMap.get(i)[1], colorMap.get(i)[2]);
+				text("Detective "+no, 1025, 300+(i*55));
+				fill(255);
+				String str = "Taxi: "+dect.get(i).tickets[0]+" Bus: "+dect.get(i).tickets[1]+" Underground: "+dect.get(i).tickets[2];
+				text(str, 1025, 305+(i*55), 125, 100);
 				if(xPos.get(0).getId() == 0) {
 					next = dect.get(i).randomAlgorithm();
 				} 
