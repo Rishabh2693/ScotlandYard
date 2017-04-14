@@ -202,6 +202,10 @@ public class GameMap extends PApplet {
 				}
 				if(next == null) {
 					caught = true;
+					textSize(20);
+					fill(0);
+					text("Game Over!", 1050, 650);
+					text("Detectives Wins!", 1020, 700);
 				} else {
 					dect.get(i).setCurrentPosition(next);
 					dectPos.set(i, next);
@@ -211,6 +215,17 @@ public class GameMap extends PApplet {
 			
 			if(x.isCaught(dectPos)) {
 				caught = true;
+				textSize(20);
+				fill(0);
+				text("Game Over!", 1050, 650);
+				text("Detectives Wins!", 1020, 700);
+			} else {
+				if(xChance == 23) {
+					textSize(20);
+					fill(0);
+					text("Game Over!", 1050, 650);
+					text("Mr X Wins!", 1030, 700);
+				}
 			}
 		}
 	}
